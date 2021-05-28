@@ -3,8 +3,9 @@ FROM haproxy:lts-alpine
 ENTRYPOINT ["/magic-entrypoint", "/docker-entrypoint.sh"]
 CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
 
-RUN apk add --no-cache python &&\
-    pip install --no-cache-dir dnspython
+USER root
+RUN apk add --no-cache python3 py3-pip &&\
+     pip3 install --no-cache-dir dnspython
 
 COPY magic-entrypoint.py /magic-entrypoint
 
@@ -30,3 +31,5 @@ LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.build-date="$BUILD_DATE" \
       org.label-schema.vcs-ref="$VCS_REF" \
       org.label-schema.vcs-url="https://github.com/Tecnativa/docker-tcp-proxy"
+
+USER haproxy
