@@ -70,6 +70,3 @@ for index, (listen, talk, pre_resolve) in enumerate(zip(LISTENS, TALKS,
 # Write template to haproxy's cfg file
 with open("/usr/local/etc/haproxy/haproxy.cfg", "w") as cfg:
     cfg.write(config)
-
-logging.info("Magic ready, executing now: %s", " ".join(sys.argv[1:]))
-os.execv(sys.argv[1], sys.argv[1:])
